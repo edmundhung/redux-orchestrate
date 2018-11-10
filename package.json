@@ -1,0 +1,41 @@
+{
+  "name": "redux-orchestrate",
+  "author": "Edmund Hung <edmund@edstud.io>",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/EdStudio/redux-orchestrate#readme",
+  "scripts": {
+    "postinstall": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.1.3",
+    "lerna": "^3.4.3",
+    "lint-staged": "^8.0.4",
+    "prettier": "1.15.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdStudio/redux-orchestrate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EdStudio/redux-orchestrate/issues"
+  }
+}

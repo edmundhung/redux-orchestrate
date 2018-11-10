@@ -59,3 +59,15 @@ typings/
 
 # next.js build output
 .next
+
+# lock file
+package-lock.json
+
+# build folders
+dist
+es
+lib
+
+# misc
+.DS_Store
+.vscode
