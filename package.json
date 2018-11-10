@@ -5,6 +5,8 @@
   "private": true,
   "homepage": "https://github.com/EdStudio/redux-orchestrate#readme",
   "scripts": {
+    "build": "lerna run --parallel build",
+    "test": "lerna run --parallel test",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {

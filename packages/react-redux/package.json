@@ -1,0 +1,57 @@
+{
+  "name": "@redux-orchestrate/react-redux",
+  "author": "Edmund Hung <edmund@edstud.io>",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/EdStudio/redux-orchestrate#readme",
+  "main": "lib/react-redux-orchestrate.js",
+  "unpkg": "dist/react-redux-orchestrate.min.js",
+  "module": "es/react-redux-orchestrate.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@redux-orchestrate/core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
+    "react-redux": "^5.0.0",
+    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-testing-library": "^5.2.3",
+    "regenerator-runtime": "^0.12.1",
+    "rollup": "^0.66.6",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-terser": "^3.0.0"
+  },
+  "description": "Custom react-redux bindings for redux-orchestrate",
+  "keywords": [
+    "react",
+    "redux",
+    "redux-orchestrate",
+    "react-redux"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdStudio/redux-orchestrate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EdStudio/redux-orchestrate/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
