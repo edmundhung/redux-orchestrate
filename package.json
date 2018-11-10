@@ -11,7 +11,7 @@
     "examples:async-thunk": "npm run start --prefix examples/async-thunk",
     "examples:async-saga": "npm run start --prefix examples/async-saga",
     "examples:independent-counter": "npm run start --prefix examples/independent-counter",
-    "postinstall": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -35,8 +35,7 @@
     ]
   },
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "directories": {
     "example": "examples"
