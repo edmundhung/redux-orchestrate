@@ -7,6 +7,10 @@
   "scripts": {
     "build": "lerna run --parallel build",
     "test": "lerna run --parallel test",
+    "examples:todos": "npm run start --prefix examples/todos",
+    "examples:async-thunk": "npm run start --prefix examples/async-thunk",
+    "examples:async-saga": "npm run start --prefix examples/async-saga",
+    "examples:independent-counter": "npm run start --prefix examples/independent-counter",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
@@ -31,8 +35,12 @@
     ]
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
+  "directories": {
+    "example": "examples"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/EdStudio/redux-orchestrate.git"
