@@ -390,10 +390,12 @@ const applyRegistry = installRegistry();
 /**
  * Assume you were setting up your project with two middlewares: redux-logger & redux-thunk
  * To apply both the registry and your middlewares, you will need the `compose` API shipped with redux
+ * Note that the registry must be applied before the middlewares if you are using a custom reducer
+ * It ensures middlewares receiving a correct state tree
  */
 const enhancer = compose(
-  applyRegistry,
   applyMiddleware(logger, thunk),
+  applyRegistry, // This will be applied before middleware
 );
 
 /**
@@ -498,8 +500,8 @@ const applyRegistry = installRegistry({
 });
 
 const enhancer = compose(
-  applyRegisty,
   applyMiddleware(sagaMiddleware),
+  applyRegisty,
 );
 
 const store = createStore(reducer, enhancer);

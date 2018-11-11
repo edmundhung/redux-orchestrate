@@ -7,7 +7,8 @@ import App from './containers/App';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const container = document.getElementById('root');
-const enhancer = composeEnhancers(installRegistry(), applyMiddleware(thunk));
+const applyRegistry = installRegistry();
+const enhancer = composeEnhancers(applyMiddleware(thunk), applyRegistry);
 
 const store = createStore(defaultReducer, enhancer);
 const app = (

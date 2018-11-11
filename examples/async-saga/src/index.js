@@ -8,14 +8,12 @@ import App from './containers/App';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const container = document.getElementById('root');
 const sagaMiddleware = createSagaMiddleware();
-const enhancer = composeEnhancers(
-  installRegistry({
-    runSaga(saga) {
-      return sagaMiddleware.run(saga);
-    },
-  }),
-  applyMiddleware(sagaMiddleware),
-);
+const applyRegistry = installRegistry({
+  runSaga(saga) {
+    return sagaMiddleware.run(saga);
+  },
+});
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware), applyRegistry);
 
 const store = createStore(defaultReducer, {}, enhancer);
 const app = (
