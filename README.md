@@ -2,7 +2,7 @@
 
 ![CircleCI (all branches)](https://img.shields.io/circleci/project/github/EdStudio/redux-orchestrate.svg?style=flat-square)
 ![npm (scoped)](https://img.shields.io/npm/v/@redux-orchestrate/core.svg?style=flat-square)
-![David (path)](https://img.shields.io/david/EdStudio/redux-orchestrate.svg?path=packages%2Fcore&style=flat-square)
+![Codecov badge](https://img.shields.io/codecov/c/github/EdStudio/redux-orchestrate/master.svg)
 ![NpmLicense](https://img.shields.io/npm/l/@redux-orchestrate/core.svg?style=flat-square)
 
 An opinionated framework inspired by domain-driven design and the event sourcing pattern. It ships a `core` store enhancer together with a custom `react-redux` binding. It is...

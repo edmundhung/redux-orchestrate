@@ -8,8 +8,7 @@
   "unpkg": "dist/react-redux-orchestrate.min.js",
   "module": "es/react-redux-orchestrate.js",
   "scripts": {
-    "build": "rollup -c",
-    "test": "jest"
+    "build": "rollup -c"
   },
   "dependencies": {
     "@redux-orchestrate/core": "^0.1.0"
@@ -23,9 +22,6 @@
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
-    "jest": "^23.6.0",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.1",
