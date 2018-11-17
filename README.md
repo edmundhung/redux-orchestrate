@@ -1,18 +1,32 @@
 # redux-orchestrate
 
-![CircleCI (all branches)](https://img.shields.io/circleci/project/github/EdStudio/redux-orchestrate.svg?style=flat-square)
-![npm (scoped)](https://img.shields.io/npm/v/@redux-orchestrate/core.svg?style=flat-square)
-![Codecov badge](https://img.shields.io/codecov/c/github/EdStudio/redux-orchestrate/master.svg)
-![NpmLicense](https://img.shields.io/npm/l/@redux-orchestrate/core.svg?style=flat-square)
+[![npm (scoped)](https://img.shields.io/npm/v/@redux-orchestrate/core.svg?style=flat-square)](https://www.npmjs.com/package/@redux-orchestrate/core)
+[![CircleCI (all branches)](https://img.shields.io/circleci/project/github/EdStudio/redux-orchestrate.svg?style=flat-square)](https://circleci.com/gh/EdStudio/redux-orchestrate/tree/master)
+[![Codecov badge](https://img.shields.io/codecov/c/github/EdStudio/redux-orchestrate.svg?style=flat-square)](https://codecov.io/gh/EdStudio/redux-orchestrate)
+[![GitHub](https://img.shields.io/github/license/EdStudio/redux-orchestrate.svg?style=flat-square)](https://github.com/EdStudio/redux-orchestrate/blob/master/LICENSE)
 
-An opinionated framework inspired by domain-driven design and the event sourcing pattern. It ships a `core` store enhancer together with a custom `react-redux` binding. It is...
+`redux-orchestrate` is an opinionated framework inspired by domain-driven design and the event sourcing pattern. It introduces an alternative approach in using `Redux` without the need to write action creators and reducers - the `Redux` way. YES. It sounds awful. But just like `redux` trades off a level of indirection for time travelling ability, `redux-orchestrate` takes it back by adopting an `event` concept together with a built-in registry which builds up reducer and generates action creators automatically. This is achieved by an initialization process which let the store mounts new slice of state tree and updates reducer to handle new action types right at the time you use it. It features:
 
-- **Composable**: Reuses and combines your business logic with ease
-- **Loadable**: Enables code splitting with a built-in registry
-- **Extensible**: Supports most of the plugins from the redux community and any view libraries
-- **Compatible**: Allows [gradual migration](#migration) for project building with the official `react-redux` package
-- **Efficient**: Do not recompute until state change
-- **Lightweight**: The `core` and the `react-redux` binding are only **1.5**KB and **1.2**KB (minified & gzipped)
+- **Compatible**: Runs on existing projects without breaking anything, totally **opt-in** with [gradual migration](#migration)
+- **Composable**: Makes selectors and action creators by composing `events` and `models`
+- **Loadable**: Works with code splitting __out of the box__
+- **Extensible**: Supports existing tools (middleware / store enhancer) from the `Redux` community
+- **Efficient**: Stops recompute until state change
+
+> The framework includes a `core` store enhancer together with a custom `react-redux` binding.
+> They are only **1.5**KB and **1.2**KB by minified & gzipped.
+
+### How it works?
+
+`redux-orchestrate` advocates __thin__ actions and __fat__ reducer. It is generally hard because reducers are harder to compose especially when you might need info derived from other subtrees. To overcome this, the reducer has been broken up to smaller pieces call `event`. Unlike reducer, `event` has no concept about action, it only talks about how state should be updated with a signature `prevState => nextState` which means event composition are as simple as applying them sequentially. To make `event` co-operating with payload of the actions, we make event factory called `event creator`. Each `event creator` will be assigned with an action type. They are then [matched against actions](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L76) recevied by the reducer and generate event performing the state change. Action creators are generated upon registering `event creators` to the store by [this](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L55):
+
+```js
+ const actionCreator = (...payload) => ({ type, payload });
+ ```
+
+Any arugments passed to the action creator will be captured as an array and put inside the action payload. The payload are then used to call the matching `event creator` after dispatched. This allows us abstracting action creators completely and focusing on the design of the `event creator`. This unavoidably sacrifice flexibility on making actions and reducer, which is a design choice of `redux-orchestrate`.
+
+In order to simplify the process, it provides workflow for setting up base event creators of a slice of state called `Aggregate` and workflow for composing them called `Service`.
 
 ## Installation
 
@@ -30,7 +44,7 @@ npm install --save @redux-orchestrate/react-redux
 
 ## Getting Started
 
-In this section, we will go through the APIs one by one with a counter example. Even though `redux-orchestrate` provides an alternative approach in building application, basic knowledges of `redux` is required. Also, as this framework borrows terminology from several areas, we strongly recommend reading the [Glossary](#glossary) section before going through this tutotial.
+In this section, we will go through the APIs one by one with a counter example. Even though `redux-orchestrate` provides an alternative approach in building application, basic knowledges of `redux` is required.
 
 To start, let's set up the store first.
 
