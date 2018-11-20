@@ -18,13 +18,15 @@
 
 ### How it works?
 
-`redux-orchestrate` advocates __thin__ actions and __fat__ reducer. It is generally hard because reducers are harder to compose especially when you might need info derived from other subtrees. To overcome this, the reducer has been broken up to smaller pieces call `event`. Unlike reducer, `event` has no concept about action, it only talks about how state should be updated with a signature `prevState => nextState` which means event composition are as simple as applying them sequentially. To make `event` co-operating with payload of the actions, we make event factory called `event creator`. Each `event creator` will be assigned with an action type. They are then [matched against actions](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L76) recevied by the reducer and generate event performing the state change. Action creators are generated upon registering `event creators` to the store by [this](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L55):
+`redux-orchestrate` advocates __thin__ actions and __fat__ reducer. It is generally hard because reducers are harder to compose especially when you might need info derived from other subtrees. To overcome this, the reducer has been broken up to smaller pieces call `event`. Unlike reducer, `event` has no concept about action, it only talks about how state should be updated with a signature `prevState => nextState` which means event composition are as simple as applying them sequentially. To make `event` co-operating with payload of the actions, we make event factory called `event creator`. Each `event creator` will be assigned with an action type. They are then matched against actions recevied by the reducer and generate event performing the state change. For details, take a look of this [code reference](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L76).
+
+While action creators are generated upon registering `event creators` to the store:
 
 ```js
  const actionCreator = (...payload) => ({ type, payload });
  ```
 
-Any arugments passed to the action creator will be captured as an array and put inside the action payload. The payload are then used to call the matching `event creator` after dispatched. This allows us abstracting action creators completely and focusing on the design of the `event creator`. This unavoidably sacrifice flexibility on making actions and reducer, which is a design choice of `redux-orchestrate`.
+As shown [above](https://github.com/EdStudio/redux-orchestrate/blob/master/packages/core/src/installRegistry.js#L55), Any arugments passed to the action creator will be captured as an array and put inside the action payload. The payload are then used to call the matching `event creator` after dispatched. This allows us abstracting action creators completely and focusing on the design of the `event creator`. This unavoidably sacrifice flexibility on making actions and reducer, which is a design choice of `redux-orchestrate`.
 
 In order to simplify the process, it provides workflow for setting up base event creators of a slice of state called `Aggregate` and workflow for composing them called `Service`.
 
