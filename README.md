@@ -377,8 +377,8 @@ You may reference the [native approach](https://github.com/redux-saga/redux-saga
 
 ### [**independent-counter**](https://codesandbox.io/s/github/EdStudio/redux-orchestrate/tree/master/examples/independent-counter)
 An example showcasing the compatible mode of `redux-orchestrate`.
-It allows rgw developer to start building new features using aggregate and services without breaking existing action creators and reducers.
-There are [certain limitations](#limitation) in this mode.
+It allows developer to start building new features using aggregate and services without breaking existing action creators and reducers.
+There are [certain limitations](#limitations) in this mode.
 
 ## Migration
 `redux-orchestrate` is completely __opt-in__.
@@ -428,13 +428,13 @@ Replace the original `react-redux` Provider component with the `@redux-orchestra
 
 ### Limitations
 
-#### 1. The top level state shape must not be a Primitive, i.e. boolean, number, string
+#### 1. The top level state shape must be an object literal
 `redux-orchestrate` makes sure your original state and the orchestrated state are being isolated by lifting up the state tree.
 But this affects the state shape returned from `store.getState()`.
 To avoid requiring users to update their existing selectors, it restructures the state tree returned.
 It brings the original state tree back to the top level and dynamically mounts the orchestrated state as a subtree.
-This works great if the original state shape is purely an object literals, especially if the users are using the `combineReducers()` helper.
-Unfortunately, if the root reducer returns any primitive such as numbers, we will encounter a problem since some of the view libraries like React only render state that is pure primitive.
+This works great if the original state shape is an object literal, which is common to users of the `combineReducers()` helper.
+Unfortunately, if the root reducer returns any primitive such as number or string, we will encounter a problem since some of the view libraries like React only render state that is pure primitive.
 They may complain when receiving the restructured state which is modified and now object-like.
 
 #### 2. Project with multiple stores setup are not supported
@@ -445,27 +445,24 @@ Please issue a feature request with explanation of your use case.
 
 ## Roadmap
 
-### 1. Shipping `@redux-orchestrate/react` with the best performance ever
+### 1. Shipping `@redux-orchestrate/react` with potentially the best performance
 
-`@redux-orchestrate/react-redux` is a wrapper on top of the official `react-redux` binding.
-This helps us promote the framework by providing a compatible API with robust stability.
-With this package, all connected components will try to re-render every time the store state is updated.
-Its performance mainly relies on the memorization of the selectors.
-Since the core API allows us to track state access by aggregates and services,
-it is now possible to minimize re-render by preventing non-relevant views from being notified at all.
-We believe this will probably take the performance to the next level.
+`@redux-orchestrate/react-redux` is a wrapper on top of the redux official `react-redux` binding.
+This allowes the framework providing a compatible API with robust stability. But this also means the same to speed. The official `react-redux` package is already a performant solution for most of the use cases. Since our core APIs make tracking state access possible through the aggregates, we are able to prevent non-relevant views from being notified from the start, instead of going through a process of comparing results between consecutive calls of the selector.
 
-### 2. Delivering some common aggregateFactory
+### 2. Delivering dumb aggregateFactories for common UI
 
 As shown in the Getting Started section,
-`aggregateFactory` is extremely useful for quickly bootstrapping repetitive scenarios.
-Due to the fact that aggregates should be as dumb as possible,
-we can deliver some of the most common aggregateFactory with proper options setting up.
-E.g. Form / Data repository
+`aggregateFactory` is an extremely useful pattern for quickly bootstrapping similar scenarios.
+By delivering dumb aggregateFactories that are capable of handling common UI such as Form and Modal, developers could then be focus on configuring the result aggregate or even customize it though service if necessary.
 
-### 3. More bindings
+### 3. Investigating possibility on reducer-based side effect handling
 
-Even though `redux-orchestrate` is currently shipped with an offical React bindings only, its core is applicable to any view libraries. But this requires supports from the communties and we would love to hear suggestions and feedback from devs with experiences on different view libraries like Angular and vue.
+In order to support action-based side effect handling like `redux-thunk`, `redux-saga` or `redux-observable`, `sideEffectFactory` and `onInitialize` hook are introduced to the `createService` API which makes its signature less ideal. However, if we can introduce mechanism similar to `redux-loop` on `event creator`, it maybe a big difference.
+
+### 4. Implementing more bindings
+
+Even though `redux-orchestrate` is currently shipped with an offical binding for React only, its core is applicable to any view libraries. But this requires supports from the communties and we would love to hear suggestions and feedback from devs with experiences on different view libraries like Angular and vue.
 
 ## API Reference
 
