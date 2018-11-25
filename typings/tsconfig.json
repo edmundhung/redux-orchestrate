@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es6"],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noEmit": true,
+    "baseUrl": "../packages",
+    "paths": {
+      "@redux-orchestrate/core": ["./core/es"],
+      "@redux-orchestrate/react-redux": ["./react-redux/es"]
+    }
+  },
+  "files": [
+    "../packages/core/index.d.ts",
+    "../packages/react-redux/index.d.ts",
+    "core.ts",
+    "react-redux.ts"
+  ]
+}

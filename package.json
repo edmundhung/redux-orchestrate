@@ -7,6 +7,7 @@
   "scripts": {
     "build": "lerna run --parallel build",
     "test": "jest",
+    "test:ts": "dtslint typings",
     "test:ci": "jest --no-watchman --maxWorkers 2 --coverage && codecov",
     "examples:todos": "npm run start --prefix examples/todos",
     "examples:async-thunk": "npm run start --prefix examples/async-thunk",
@@ -22,6 +23,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "codecov": "^3.1.0",
+    "dtslint": "^0.3.0",
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
