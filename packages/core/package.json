@@ -7,21 +7,12 @@
   "main": "lib/redux-orchestrate.js",
   "unpkg": "dist/redux-orchestrate.min.js",
   "module": "es/redux-orchestrate.js",
-  "scripts": {
-    "build": "rollup -c"
-  },
+  "scripts": {},
   "peerDependencies": {
     "redux": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
-    "redux": "^4.0.1",
-    "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-replace": "^2.1.0",
-    "rollup-plugin-terser": "^4.0.4"
+    "redux": "^4.0.1"
   },
   "description": "Yet another opinionated framework for Redux",
   "keywords": [
